@@ -20,16 +20,16 @@ describe('AppComponent', () => {
     expect(app).toBeTruthy();
   });
 
-  it(`should have as title 'healthtrackerfrontend'`, () => {
+  it(`should have as title 'PersonalBudget'`, () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.componentInstance;
-    expect(app.title).toEqual('healthtrackerfrontend');
+    expect(app.title).toEqual('PersonalBudget');
   });
 
   it('should render title', () => {
     const fixture = TestBed.createComponent(AppComponent);
     fixture.detectChanges();
     const compiled = fixture.nativeElement;
-    expect(compiled.querySelector('.content span').textContent).toContain('healthtrackerfrontend app is running!');
+    expect(compiled.querySelector('.content span').textContent).toContain('PersonalBudget app is running!');
   });
 });
