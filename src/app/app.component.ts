@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { LoginServiceService } from './login-service.service';
 
 @Component({
   selector: 'app-root',
@@ -8,6 +7,6 @@ import { LoginServiceService } from './login-service.service';
 })
 export class AppComponent {
 
-  title = 'PersonalBudget';
+  title = 'Health Tracker';
 
 }

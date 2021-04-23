@@ -2,8 +2,6 @@ import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
-import firebase from 'firebase';
-import { environment } from '../environments/environment';
 
 @Injectable({
   providedIn: 'root',

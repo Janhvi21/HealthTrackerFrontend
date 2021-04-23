@@ -1,10 +1,9 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { CommonModule } from '@angular/common';
 import { LoginPageComponent } from './login-page/login-page.component';
-import { DashboardComponent } from './dashboard/dashboard.component';
 import { SignUpComponent } from './sign-up/sign-up.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
+import {UpdateprofileComponent} from './updateprofile/updateprofile.component';
 
 const routes: Routes = [
   {
@@ -24,6 +23,10 @@ const routes: Routes = [
   {
     path:'sidebar',
     component:SidebarComponent
+  },
+  {
+    path:'update',
+    component:UpdateprofileComponent
   }
 ];
 

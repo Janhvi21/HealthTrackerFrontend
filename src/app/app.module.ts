@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-
+import {ReactiveFormsModule } from '@angular/forms';
 import { AppComponent } from './app.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { LoginPageComponent } from './login-page/login-page.component';
@@ -12,22 +12,29 @@ import { AngularFireAuthModule } from '@angular/fire/auth';
 import { LoginServiceService } from './login-service.service';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
-import { firebase} from '../../node_modules/@firebase/app';
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import {MatInputModule} from '@angular/material/input'
-import { ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { BmiChartComponent } from './bmi-chart/bmi-chart.component';
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import {UpdateprofileComponent} from './updateprofile/updateprofile.component';
+
+
 @NgModule({
   declarations: [
     AppComponent,
     DashboardComponent,
     LoginPageComponent,
     SignUpComponent,
-    SidebarComponent
+    SidebarComponent,
+    BmiChartComponent,
+    UpdateprofileComponent,
+
+
   ],
   imports: [
     BrowserModule,
@@ -41,7 +48,10 @@ import { CommonModule } from '@angular/common';
     MatNativeDateModule,
     MatFormFieldModule,
     MatInputModule,
-    CommonModule
+    CommonModule,
+    NgbModule,
+    ReactiveFormsModule,
+    FormsModule
   ],
   providers: [LoginServiceService],
   bootstrap: [AppComponent]
