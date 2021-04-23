@@ -10,6 +10,7 @@ nav {
 
 .background {
     //height: 100%;
+
 }
 
 .box {
@@ -23,7 +24,7 @@ nav {
 
 .title {
     font-size: 200%;
-    color: white;
+    color: white !important;
     font-weight: 200;
 }
 
@@ -34,5 +35,7 @@ nav {
 }
 .links:hover{
   cursor: pointer;
+  background-color: white!important;
+  color: black!important;
 
 }

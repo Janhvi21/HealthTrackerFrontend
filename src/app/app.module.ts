@@ -22,6 +22,7 @@ import { CommonModule } from '@angular/common';
 import { BmiChartComponent } from './bmi-chart/bmi-chart.component';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {UpdateprofileComponent} from './updateprofile/updateprofile.component';
+import { ProfileviewComponent } from './profileview/profileview.component';
 
 
 @NgModule({
@@ -33,6 +34,7 @@ import {UpdateprofileComponent} from './updateprofile/updateprofile.component';
     SidebarComponent,
     BmiChartComponent,
     UpdateprofileComponent,
+    ProfileviewComponent,
 
 
   ],

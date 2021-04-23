@@ -4,6 +4,7 @@ import { LoginPageComponent } from './login-page/login-page.component';
 import { SignUpComponent } from './sign-up/sign-up.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
 import {UpdateprofileComponent} from './updateprofile/updateprofile.component';
+import {ProfileviewComponent}from './profileview/profileview.component';
 
 const routes: Routes = [
   {
@@ -27,6 +28,10 @@ const routes: Routes = [
   {
     path:'update',
     component:UpdateprofileComponent
+  },
+  {
+    path:'profileview',
+    component:ProfileviewComponent
   }
 ];
 
