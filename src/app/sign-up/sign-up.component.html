@@ -12,26 +12,34 @@
                                     </div>
                                     <form class="user">
                                         <div class="form-group row">
-                                            <div class="col-sm-6 mb-3 mb-sm-0">
-                                                <input class="form-control form-control-user" type="text" id="exampleFirstName" placeholder="First Name" name="first_name" [(ngModel)]="firstName" />
-                                            </div>
-                                            <div class="col-sm-6">
-                                                <input class="form-control form-control-user" type="text" id="exampleFirstName" placeholder="Last Name" name="last_name" [(ngModel)]="lastName" />
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <input class="form-control form-control-user" type="email" id="InputEmail" aria-describedby="emailHelp" placeholder="Email Address" name="email" [(ngModel)]="Email" />
+                                            <input class="form-control form-control-user" type="text" id="exampleFirstName" placeholder="First Name" name="first_name" [(ngModel)]="userInfo.firstName" />
                                         </div>
                                         <div class="form-group row">
-                                            <div class="col-sm-6 mb-3 mb-sm-0">
-                                                <input class="form-control form-control-user" type="password" id="PasswordInput" placeholder="Password" name="password" [(ngModel)]="Password" />
-                                            </div>
-                                            <div class="col-sm-6">
-                                                <input class="form-control form-control-user" type="password" id="RepeatPasswordInput" placeholder="Repeat Password" name="password_repeat" />
-                                            </div>
+                                            <input class="form-control form-control-user" type="text" id="exampleFirstName" placeholder="Last Name" name="last_name" [(ngModel)]="userInfo.lastName" />
+                                        </div>
+                                        <div class="form-group row">
+                                            <input class="form-control form-control-user" type="email" id="InputEmail" aria-describedby="emailHelp" placeholder="Email Address" name="email" [(ngModel)]="userInfo.email" />
+                                        </div>
+                                        <div class="form-group row">
+                                            <input class="form-control form-control-user" type="password" id="PasswordInput" placeholder="Password" name="password" [(ngModel)]="userInfo.password" />
+                                        </div>
+                                        <div class="form-group row">
+                                            <input class="form-control form-control-user" type="password" id="RepeatPasswordInput" placeholder="Repeat Password" name="password_repeat" />
+                                        </div>
+                                        <div class="form-group row">
+                                            <input class="form-control form-control-user" type="Age" id="Age" aria-describedby="Age" placeholder="Age" name="Age" [(ngModel)]="userInfo.age" />
+                                        </div>
+                                        <div class="form-group row">
+                                            <input class="form-control form-control-user" type="Gender" id="Gender" aria-describedby="Gender" placeholder="Gender" name="Gender" [(ngModel)]="userInfo.gender" />
+                                        </div>
+                                        <div class="form-group row">
+                                            <input class="form-control form-control-user" type="text" id="Height" aria-describedby="Height" placeholder="Height" name="Height" [(ngModel)]="userInfo.height" />
+                                        </div>
+                                        <div class="form-group row">
+                                            <input class="form-control form-control-user" type="text" id="Weight" aria-describedby="Weight" placeholder="Weight" name="Weight" [(ngModel)]="userInfo.weight" />
                                         </div>
                                         <div class="text-center">
-                                            <button class="mdc-button mdc-button--raised m-2" (click)="onSignUp(firstName, lastName, Email, Password)">
+                                            <button class="mdc-button mdc-button--raised m-2" (click)="onSignUp(userInfo)">
                         <span class="mdc-button__label">Register Account</span>
                       </button>
                                         </div>
