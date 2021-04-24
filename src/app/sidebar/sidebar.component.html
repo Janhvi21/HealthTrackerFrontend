@@ -20,8 +20,8 @@
           >
         </li>
         <li class="nav-item active">
-          <a class="nav-link links" (click)="onChangeMenu('Dashboard')"
-            >Add data <span class="sr-only">(current)</span></a
+          <a class="nav-link links" (click)="onChangeMenu('addcalories')"
+            >Add calories<span class="sr-only">(current)</span></a
           >
         </li>
         <li class="nav-item active">
@@ -51,5 +51,8 @@
     <app-dashboard *ngIf="selectedMenu == 'Dashboard'"></app-dashboard>
 
     <app-transactions *ngIf="selectedMenu == 'Transactions'"></app-transactions>
+    <app-dailycalories
+      *ngIf="selectedMenu == 'addcalories'"
+    ></app-dailycalories>
   </div>
 </div>
