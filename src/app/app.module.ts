@@ -21,8 +21,8 @@ import {MatInputModule} from '@angular/material/input'
 import { CommonModule } from '@angular/common';
 import { BmiChartComponent } from './bmi-chart/bmi-chart.component';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
-import {UpdateprofileComponent} from './updateprofile/updateprofile.component';
 import { ProfileviewComponent } from './profileview/profileview.component';
+import { DailycaloriesComponent } from './dailycalories/dailycalories.component';
 
 
 @NgModule({
@@ -33,8 +33,8 @@ import { ProfileviewComponent } from './profileview/profileview.component';
     SignUpComponent,
     SidebarComponent,
     BmiChartComponent,
-    UpdateprofileComponent,
     ProfileviewComponent,
+    DailycaloriesComponent,
 
 
   ],
