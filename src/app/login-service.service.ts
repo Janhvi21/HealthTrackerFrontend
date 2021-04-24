@@ -58,19 +58,14 @@ export class LoginServiceService {
       });
     return false;
   }
-  async signup(name: string, email: string, password: string) {
+  async signup(userInfo:any) {
     const promise = new Promise<void>((resolve, reject) => {
       this.http
-        .post('http://localhost:3000/createNewUser', {
-          username: name,
-          password: password.trim(),
-          email: email.trim(),
-          monthly_expenses: '',
-        })
+        .post('http://localhost:3000/createNewUser', userInfo)
         .toPromise()
         .then((res1: any) => {
           if (res1.success == true) {
-            this.signin(email, password).then((res: any) => {
+            this.signin(userInfo.email, userInfo.password).then((res: any) => {
               resolve();
             });
           }

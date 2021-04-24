@@ -7,21 +7,23 @@ import { LoginServiceService } from '../login-service.service';
   styleUrls: ['./sign-up.component.scss'],
 })
 export class SignUpComponent implements OnInit {
-  Password: '';
-  Email: '';
-  firstName: '';
-  lastName: '';
+  userInfo={
+    firstName:"",
+    lastName:"",
+    email:"",
+    password:"",
+    gender:"",
+    age:"",
+    height:"",
+    weight:"",
+    uid:""
+  }
   constructor(public loginServiceService: LoginServiceService) {}
 
   ngOnInit(): void {}
 
-  async onSignUp(
-    firstName: string,
-    lastName: string,
-    email: string,
-    password: string
-  ) {
-    const userName = firstName + lastName;
-    await this.loginServiceService.signup(userName, email, password);
+  async onSignUp(userInfo:any) {
+    const userName = userInfo.firstName + userInfo.lastName;
+    await this.loginServiceService.signup(userInfo);
   }
 }
