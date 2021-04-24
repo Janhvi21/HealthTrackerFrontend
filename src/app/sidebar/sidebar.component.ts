@@ -18,6 +18,7 @@ export class SidebarComponent implements OnInit, AfterViewInit {
   ) {}
   ngOnInit() {
     this.dataServices.getDataFromFirebase();
+    this.dataServices.getHealthDataFromFirebase();
   }
   ngAfterViewInit(): void {
 

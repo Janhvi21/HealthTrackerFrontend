@@ -1,19 +1,18 @@
 <div class="box">
-  <div id="content-wrapper" class="content">
-    <div class="" id="content" style="height: 100%">
-      <div class="container-fluid">
-        <div class="d-sm-flex justify-content-between align-items-center mb-4">
-          <h3 class="title py-2">Transactions</h3>
-        </div>
+    <div id="content-wrapper" class="content">
+        <div class="" id="content" style="height: 100%">
+            <div class="container-fluid">
+                <div class="d-sm-flex justify-content-between align-items-center mb-4">
+                    <h3 class="title py-2">Add Calorie Intake</h3>
+                </div>
 
-        <div class="row" *ngIf="showform">
-          <div class="col-md-12">
-            <div class="card shadow mb-4 m-2">
-              <div class="card-body">
-                <form class="form-horizontal" action="/action_page.php">
-                  <div class="form-group">
-                    <label class="control-label col-sm-2" for="email"
-                      >Category:</label
+                <div class="row" *ngIf="showform">
+                    <div class="col-md-12">
+                        <div class="card shadow mb-4 m-2">
+                            <div class="card-body">
+                                <form class="form-horizontal" action="/action_page.php">
+                                    <div class="form-group">
+                                        <label class="control-label col-sm-2" for="email">Category:</label
                     >
                     <div class="">
                       <select
@@ -35,51 +34,31 @@
                   </div>
                   <div class="form-group">
                     <label class="control-label col-sm-2">Date:</label>
-                    <div class="col-sm-10">
-                      <mat-form-field>
-                        <input
-                          matInput
-                          [matDatepicker]="picker1"
-                          autocomplete="off"
-                          [(ngModel)]="Date"
-                          name="Date"
-                        />
-                        <mat-datepicker-toggle
-                          matSuffix
-                          [for]="picker1"
-                        ></mat-datepicker-toggle>
-                        <mat-datepicker
-                          #picker1
-                          color="primary"
-                        ></mat-datepicker>
-                      </mat-form-field>
-                    </div>
-                  </div>
-                  <div class="form-group">
-                    <label class="control-label col-sm-2">Details:</label>
-                    <div class="col-sm-10">
-                      <input
-                        type="text"
-                        class="form-control"
-                        id="Details"
-                        placeholder="Enter Details"
-                        name="Details"
-                        [(ngModel)]="Details"
-                      />
-                    </div>
-                  </div>
-                  <div class="form-group">
-                    <label class="control-label col-sm-2"
-                      >Calorie Consumed</label
+                                        <div class="col-sm-10">
+                                            <mat-form-field>
+                                                <input matInput [matDatepicker]="picker1" autocomplete="off" [(ngModel)]="Date" name="Date" />
+                                                <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                                                <mat-datepicker #picker1 color="primary"></mat-datepicker>
+                                            </mat-form-field>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label col-sm-2">Details:</label>
+                                        <div class="col-sm-10">
+                                            <input type="text" class="form-control" id="Details" placeholder="Enter Details" name="Details" [(ngModel)]="Details" />
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label col-sm-2">Calorie Consumed</label
                     >
                     <div class="col-sm-10">
                       <input
                         type="number"
                         class="form-control"
-                        id="Spent"
-                        placeholder="Enter Amount Spent"
-                        name="Spent"
-                        [(ngModel)]="Spent"
+                        id="calorie"
+                        placeholder="Enter Calorie Consumed"
+                        name="calorie"
+                        [(ngModel)]="calorie"
                       />
                     </div>
                   </div>
@@ -88,11 +67,7 @@
                       <button
                         type="button"
                         class="btn btn-secondary btn-lg"
-                        data-toggle="modal"
-                        data-target="#expenseModal"
-                        (click)="
-                          onAddTransaction(Category, Date, Details, Spent)
-                        "
+                        (click)="onAddMeal(Category, Date, Details, calorie)"
                       >
                         Add Meal
                       </button>
@@ -107,8 +82,8 @@
           class="row"
           *ngIf="
             !showform &&
-            dataServices.transactions &&
-            dataServices.transactions.length > 0
+            calorieValues &&
+            calorieValues.length > 0
           "
         >
           <div class="col-md-12">
@@ -127,23 +102,15 @@
                     <tbody>
                       <tr
                         *ngFor="
-                          let row of this.dataServices.transactions;
+                          let row of this.calorieValues;
                           let i = index
                         "
                       >
-                        <td>{{ row.Category }}</td>
                         <td>{{ row.Date }}</td>
+                        <td>{{ row.Category }}</td>
                         <td>{{ row.Details }}</td>
-                        <td>{{ row.Spent }}</td>
-                        <td>
-                          <a
-                            class="add"
-                            title="Delete"
-                            data-toggle="tooltip"
-                            (click)="OnDelete(i, row.Category, row.Spent)"
-                            ><i class="fa fa-trash"></i
-                          ></a>
-                        </td>
+                        <td>{{ row.Calorie }}</td>
+
                       </tr>
                     </tbody>
                   </table>
@@ -155,8 +122,8 @@
         <div
           class="alert alert-info"
           *ngIf="
-            !dataServices.transactions ||
-            (dataServices.transactions && dataServices.transactions.length == 0)
+            !calorieValues ||
+            (calorieValues && calorieValues.length == 0)
           "
         >
           <strong>Add Meal for Today</strong>

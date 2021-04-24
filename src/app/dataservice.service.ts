@@ -15,188 +15,280 @@ export class Element {
   providedIn: 'root',
 })
 export class DataserviceService {
-  public userName = '';
-  public allmonths = [
-    'January',
-    'February',
-    'March',
-    'April',
-    'May',
-    'June',
-    'July',
-    'August',
-    'September',
-    'October',
-    'November',
-    'December',
-  ];
-  public dataSource = {
-    datasets: [
-      {
-        data: [],
-        backgroundColor: [
-          '#98abc5',
-          '#8a89a6',
-          '#7b6888',
-          '#6b486b',
-          '#a05d56',
-          '#d0743c',
-          '#ff8c00',
-        ],
-      },
-    ],
-    labels: [],
-  };
-  public months = [];
-  public data = [];
-  public result;
-  public setYear = '';
-  public setMonth = '';
-  public transactions = [];
-  public UserData = [];
-  public spentData = [];
-  setyearMonth(monthyear) {
-    let temp = monthyear.split(' ');
-    this.setMonth = temp[0];
-    this.setYear = temp[1];
-  }
-  constructor( public firebaseAuth: AngularFireAuth,
+  public userData = {};
+  public userHealth = {};
+  public userCalorieConsumption = {};
+  constructor(
+    public firebaseAuth: AngularFireAuth,
     private router: Router,
-    private http: HttpClient) { }
+    private http: HttpClient
+  ) {}
 
-    deleteTransactions(id: string, category: string, spent: string) {
-      let token = localStorage.getItem('TOKEN');
-      let uid = localStorage.getItem('uid');
-      const params = {
-        id: id,
-        category: category,
-        spent: spent,
-        month: this.setMonth,
-        year: this.setYear,
-      };
-      const promise = new Promise<void>((resolve, reject) => {
-        this.http
-          .post(
-            environment.URL + ':3000/deleteTransactions',
-            { params },
-            {
-              headers: {
-                Authorization: `Bearer ${token}`,
-                uid: uid,
-              },
-            }
-          )
-          .toPromise()
-          .then((res: any) => {
-            resolve();
-          })
-          .catch((error: any) => {
-            resolve();
-            if (error.status == 401 || error.statusText == 'Unauthorized') {
-              this.router.navigate(['/login']);
-              this.removeBackdrop();
-            }
-          });
-      });
-      return promise;
-    }
-    addMonthToDB(month: string, year: string) {
-      let token = localStorage.getItem('TOKEN');
-      let uid = localStorage.getItem('uid');
-      const params = {
-        month: month,
-        year: year,
-        currMonth: this.setMonth,
-        currYear: this.setYear,
-      };
-      const promise = new Promise<void>((resolve, reject) => {
-        this.http
-          .post(
-            environment.URL + ':3000/addMonthtoDB',
-            { params },
-            {
-              headers: {
-                Authorization: `Bearer ${token}`,
-                uid: uid,
-              },
-            }
-          )
-          .toPromise()
-          .then((res: any) => {
-            resolve();
-          })
-          .catch((error: any) => {
-            console.log(error);
-            resolve();
-            if (error.status == 401 || error.statusText == 'Unauthorized') {
-              this.router.navigate(['/login']);
-              this.removeBackdrop();
-            }
-          });
-      });
-
-      return promise;
-    }
-    removeBackdrop() {
-      $('body').removeClass('modal-open');
-      $('.modal-backdrop').remove();
-    }
-    getDataFromFirebase() {
-      this.spentData = [];
-      this.UserData = [];
-      this.transactions = [];
-
-      this.dataSource.datasets[0].data = [];
-
-      let token = localStorage.getItem('TOKEN');
-      let uid = localStorage.getItem('uid');
-      const promise = new Promise<void>((resolve, reject) => {
-        this.http
-          .get(environment.URL + ':3000/getAllData', {
+  /*deleteTransactions(id: string, category: string, spent: string) {
+    let token = localStorage.getItem('TOKEN');
+    let uid = localStorage.getItem('uid');
+    const params = {
+      id: id,
+      category: category,
+      spent: spent,
+      month: this.setMonth,
+      year: this.setYear,
+    };
+    const promise = new Promise<void>((resolve, reject) => {
+      this.http
+        .post(
+          environment.URL + ':3000/deleteTransactions',
+          { params },
+          {
             headers: {
               Authorization: `Bearer ${token}`,
               uid: uid,
             },
-          })
-          .toPromise()
-          .then((res: any) => {
-            this.months = [];
-            let i = 0;
-            for (let year in res) {
-              if (year != 'email' && year != 'username') {
-                for (let month in res[year]) {
-                  this.months.push(month + ' ' + year);
-                }
-              }
-            }
-            if (!this.setMonth || !this.setYear) {
-              const date = new Date();
-              this.setMonth = this.allmonths[date.getUTCMonth()];
-              this.setYear = date.getFullYear().toString();
-            }
-            const budgetData = res[this.setYear][this.setMonth]['Budget'];
-            const expData = res[this.setYear][this.setMonth]['Expense'];
-            for (let budget in budgetData) {
-              this.dataSource.datasets[0].data[i] = budgetData[budget];
-              this.dataSource.labels[i] = budget;
-              this.spentData[i] = expData[budget];
+          }
+        )
+        .toPromise()
+        .then((res: any) => {
+          resolve();
+        })
+        .catch((error: any) => {
+          resolve();
+          if (error.status == 401 || error.statusText == 'Unauthorized') {
+            this.router.navigate(['/login']);
+            this.removeBackdrop();
+          }
+        });
+    });
+    return promise;
+  }
+  addMonthToDB(month: string, year: string) {
+    let token = localStorage.getItem('TOKEN');
+    let uid = localStorage.getItem('uid');
+    const params = {
+      month: month,
+      year: year,
+      currMonth: this.setMonth,
+      currYear: this.setYear,
+    };
+    const promise = new Promise<void>((resolve, reject) => {
+      this.http
+        .post(
+          environment.URL + ':3000/addMonthtoDB',
+          { params },
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+              uid: uid,
+            },
+          }
+        )
+        .toPromise()
+        .then((res: any) => {
+          resolve();
+        })
+        .catch((error: any) => {
+          console.log(error);
+          resolve();
+          if (error.status == 401 || error.statusText == 'Unauthorized') {
+            this.router.navigate(['/login']);
+            this.removeBackdrop();
+          }
+        });
+    });
 
-              i++;
-            }
-            this.transactions = res[this.setYear][this.setMonth]['Transactions'];
-            this.UserData = res[this.setYear][this.setMonth]['Budget'];
-            this.userName = res['username'];
-            resolve();
-          })
-          .catch((error: any) => {
-            resolve();
-            if (error.status == 401 || error.statusText == 'Unauthorized') {
-              this.router.navigate(['/login']);
-              this.removeBackdrop();
-            }
-          });
-      });
-      return promise;
-    }
+    return promise;
+  }*/
+  removeBackdrop() {
+    $('body').removeClass('modal-open');
+    $('.modal-backdrop').remove();
+  }
+  getDataFromFirebase() {
+    let token = localStorage.getItem('TOKEN');
+    let uid = localStorage.getItem('uid');
+    const promise = new Promise<void>((resolve, reject) => {
+      this.http
+        .get(environment.URL + ':3000/getUserInfo', {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            uid: uid,
+          },
+        })
+        .toPromise()
+        .then((res: any) => {
+          console.log(res);
+          this.userData = res;
+          resolve();
+        })
+        .catch((error: any) => {
+          resolve();
+          if (error.status == 401 || error.statusText == 'Unauthorized') {
+            this.router.navigate(['/login']);
+            this.removeBackdrop();
+          }
+        });
+    });
+    return promise;
+  }
+  getHealthDataFromFirebase() {
+    let token = localStorage.getItem('TOKEN');
+    let uid = localStorage.getItem('uid');
+    const promise = new Promise<void>((resolve, reject) => {
+      this.http
+        .get(environment.URL + ':3000/getUserHealthInfo', {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            uid: uid,
+          },
+        })
+        .toPromise()
+        .then((res: any) => {
+          this.userHealth = res;
+          resolve();
+        })
+        .catch((error: any) => {
+          resolve();
+          if (error.status == 401 || error.statusText == 'Unauthorized') {
+            this.router.navigate(['/login']);
+            this.removeBackdrop();
+          }
+        });
+    });
+    return promise;
+  }
+  updateUser() {
+    console.log(this.userData);
+    let token = localStorage.getItem('TOKEN');
+    let uid = localStorage.getItem('uid');
+    const params = {
+      user: this.userData,
+    };
+    const promise = new Promise<void>((resolve, reject) => {
+      this.http
+        .post(
+          environment.URL + ':3000/updateUser',
+          { params },
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+              uid: uid,
+            },
+          }
+        )
+        .toPromise()
+        .then((res: any) => {
+          console.log(res);
+          if (res.firstName === this.userData['firstName']) {
+            this.userData = res;
+          }
+          resolve();
+        })
+        .catch((error: any) => {
+          resolve();
+          if (error.status == 401 || error.statusText == 'Unauthorized') {
+            this.router.navigate(['/profileview']);
+            this.removeBackdrop();
+          }
+        });
+    });
+    return promise;
+  }
+  updateUserHealthInfo() {
+    console.log(this.userData);
+    let token = localStorage.getItem('TOKEN');
+    let uid = localStorage.getItem('uid');
+    const params = {
+      user: this.userData,
+    };
+    const promise = new Promise<void>((resolve, reject) => {
+      this.http
+        .post(
+          environment.URL + ':3000/updateUserHealthInfo',
+          { params },
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+              uid: uid,
+            },
+          }
+        )
+        .toPromise()
+        .then((res: any) => {
+          this.userHealth = res;
+          resolve();
+        })
+        .catch((error: any) => {
+          resolve();
+          if (error.status == 401 || error.statusText == 'Unauthorized') {
+            this.router.navigate(['/profileview']);
+            this.removeBackdrop();
+          }
+        });
+    });
+    return promise;
+  }
+  getCalorieConsumption() {
+    let token = localStorage.getItem('TOKEN');
+    let uid = localStorage.getItem('uid');
+    const promise = new Promise<void>((resolve, reject) => {
+      this.http
+        .get(
+          environment.URL + ':3000/getCalorieConsumption',
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+              uid: uid,
+            },
+          }
+        )
+        .toPromise()
+        .then((res: any) => {
+          console.log(res);
+          this.userCalorieConsumption=res;
+          resolve();
+        })
+        .catch((error: any) => {
+          resolve();
+          if (error.status == 401 || error.statusText == 'Unauthorized') {
+            //this.router.navigate(['/profileview']);
+            this.removeBackdrop();
+          }
+        });
+    });
+    return promise;
+  }
+  addCalorieConsumption(Category, Date, Details, Calorie) {
+    let token = localStorage.getItem('TOKEN');
+    let uid = localStorage.getItem('uid');
+    const params = {
+      Category: Category,
+      Date: Date,
+      Details: Details,
+      Calorie: Calorie,
+    };
+    const promise = new Promise<void>((resolve, reject) => {
+      this.http
+        .post(
+          environment.URL + ':3000/addCalorieConsumption',
+          { params },
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+              uid: uid,
+            },
+          }
+        )
+        .toPromise()
+        .then((res: any) => {
+          this.userCalorieConsumption=res;
+          resolve();
+        })
+        .catch((error: any) => {
+          resolve();
+          if (error.status == 401 || error.statusText == 'Unauthorized') {
+            //this.router.navigate(['/profileview']);
+            this.removeBackdrop();
+          }
+        });
+    });
+    return promise;
+  }
 }
-

@@ -12,29 +12,36 @@
                                     </div>
                                     <form class="user">
                                         <div class="form-group row">
-                                            <input class="form-control form-control-user" type="text" id="FirstName" aria-describedby="FirstName" placeholder="FirstName" name="FirstName" />
+                                            <label for="FirstName">First Name:</label>
+                                            <input class="form-control form-control-user" type="text" id="FirstName" aria-describedby="FirstName" placeholder="FirstName" name="FirstName" disabled [(ngModel)]="userInfo.firstName" />
                                         </div>
                                         <div class="form-group row">
-                                            <input class="form-control form-control-user" type="text" id="LastName" aria-describedby="LastName" placeholder="LastName" name="LastName" />
+                                            <label for="LastName">Last Name:</label>
+                                            <input class="form-control form-control-user" type="text" id="LastName" aria-describedby="LastName" placeholder="LastName" name="LastName" disabled [(ngModel)]="userInfo.lastName" />
                                         </div>
                                         <div class="form-group row">
-                                            <input class="form-control form-control-user" type="email" id="InputEmail" aria-describedby="emailHelp" placeholder="Email Address" name="email" />
+                                            <label for="InputEmail">Input Email:</label>
+                                            <input class="form-control form-control-user" type="email" id="InputEmail" aria-describedby="emailHelp" placeholder="Email Address" name="email" disabled [(ngModel)]="userInfo.email" />
                                         </div>
                                         <div class="form-group row">
-                                            <input class="form-control form-control-user" type="Age" id="Age" aria-describedby="Age" placeholder="Age" name="Age" />
+                                            <label for="Age">Age:</label>
+                                            <input class="form-control form-control-user" type="Age" id="Age" aria-describedby="Age" placeholder="Age" name="Age" [(ngModel)]="userInfo.age" />
                                         </div>
                                         <div class="form-group row">
-                                            <input class="form-control form-control-user" type="Gender" id="Gender" aria-describedby="Gender" placeholder="Gender" name="Gender" />
+                                            <label for="Gender">Gender:</label>
+                                            <input class="form-control form-control-user" type="Gender" id="Gender" aria-describedby="Gender" placeholder="Gender" name="Gender" [(ngModel)]="userInfo.gender" />
                                         </div>
                                         <div class="form-group row">
-                                            <input class="form-control form-control-user" type="text" id="Height" aria-describedby="Height" placeholder="Height" name="Height" />
+                                            <label for="Height">Height:</label>
+                                            <input class="form-control form-control-user" type="text " id="Height " aria-describedby="Height " placeholder="Height " name="Height " [(ngModel)]="userInfo.height" />
                                         </div>
                                         <div class="form-group row">
-                                            <input class="form-control form-control-user" type="text" id="Weight" aria-describedby="Weight" placeholder="Weight" name="Weight" />
+                                            <label for="Weight">Weight:</label>
+                                            <input class="form-control form-control-user" type="text " id="Weight " aria-describedby="Weight " placeholder="Weight " name="Weight " [(ngModel)]="userInfo.weight" />
                                         </div>
                                         <div class="text-center">
                                             <button class="mdc-button mdc-button--raised m-2">
-                        <span class="mdc-button__label">Update</span>
+                        <span class="mdc-button__label" (click)="update()">Update</span>
                       </button>
                                             <button class="mdc-button mdc-button--raised m-2" (click)="back()">
                         <span class="mdc-button__label">back</span>
