@@ -64,19 +64,36 @@
 </style>
 <div class="container-fluid">
   <div class="row m-b-1">
-    <div class="col-lg-6">
+    <div class="col-lg-4">
       <div class="card shadow">
-        <h4 class="card-header">Orders</h4>
+        <h4 class="card-header">Body Mass Index</h4>
         <div class="card-block">
-          <div id="orders-spline-chart"></div>
+          <i class="fa fa-ticket"></i>
+          <span class="count-numbers">{{
+            dataService["userHealth"]["bmi"]
+          }}</span>
         </div>
       </div>
     </div>
-    <div class="col-lg-6">
+    <div class="col-lg-4">
       <div class="card shadow">
-        <h4 class="card-header">Product Wise Revenue</h4>
+        <h4 class="card-header">Body type</h4>
         <div class="card-block">
-          <div id="products-revenue-pie-chart"></div>
+          <i class="fa fa-ticket"></i>
+          <span class="count-numbers1">{{
+            dataService["userHealth"]["bodyStatus"]
+          }}</span>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-4">
+      <div class="card shadow">
+        <h4 class="card-header">Calorie Required to maintain Weight</h4>
+        <div class="card-block">
+          <i class="fa fa-ticket"></i>
+          <span class="count-numbers1">{{
+            dataService["userHealth"]["bmr"]
+          }}</span>
         </div>
       </div>
     </div>

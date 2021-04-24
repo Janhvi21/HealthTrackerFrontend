@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import * as CanvasJS from '../assets/canvasjs.min';
+import { DataserviceService } from '../dataservice.service';
 
 @Component({
   selector: 'app-bmi-chart',
@@ -8,7 +9,7 @@ import * as CanvasJS from '../assets/canvasjs.min';
 })
 export class BmiChartComponent implements OnInit {
 
-  constructor() { }
+  constructor(public dataService:DataserviceService) {}
   title = 'canvasjs-angular';
 
   ngOnInit() {

@@ -14,11 +14,11 @@ export class SidebarComponent implements OnInit, AfterViewInit {
   constructor(
     public loginServiceService: LoginServiceService,
     public router: Router,
-    public dataServices:DataserviceService
+    public dataService:DataserviceService
   ) {}
   ngOnInit() {
-    this.dataServices.getDataFromFirebase();
-    this.dataServices.getHealthDataFromFirebase();
+    this.dataService.getDataFromFirebase();
+    this.dataService.getHealthDataFromFirebase();
   }
   ngAfterViewInit(): void {
 

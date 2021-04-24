@@ -1,4 +1,5 @@
 import { Component, OnInit, AfterViewInit } from '@angular/core';
+import { DataserviceService } from '../dataservice.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -6,5 +7,5 @@ import { Component, OnInit, AfterViewInit } from '@angular/core';
   styleUrls: ['./dashboard.component.scss'],
 })
 export class DashboardComponent {
-  constructor() {}
+  constructor(public dataService:DataserviceService) {}
 }
