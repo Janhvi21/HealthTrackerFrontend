@@ -41,6 +41,8 @@ export class LoginServiceService {
                 })
                 .toPromise()
                 .then((tokenResponse) => {
+                  console.log(tokenResponse);
+                  console.log(res1);
                   localStorage.setItem('Email', email);
                   localStorage.setItem('Password', password);
                   localStorage.setItem('TOKEN', res1.token);
@@ -66,6 +68,7 @@ export class LoginServiceService {
         .then((res1: any) => {
           if (res1.success == true) {
             this.signin(userInfo.email, userInfo.password).then((res: any) => {
+
               resolve();
             });
           }

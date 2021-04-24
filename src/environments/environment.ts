@@ -14,7 +14,7 @@ export const environment = {
     appId: "1:159937585366:web:e1f203fae2501175d5a977",
     measurementId: "G-40CFYQ180Y"
   },
-  URL:"",
+  URL:"http://localhost",
 };
 
 /*

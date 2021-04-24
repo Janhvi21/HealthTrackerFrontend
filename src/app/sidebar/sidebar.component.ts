@@ -1,6 +1,7 @@
 import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { LoginServiceService } from '../login-service.service';
 import { Router } from '@angular/router';
+import { DataserviceService } from '../dataservice.service';
 
 @Component({
   selector: 'app-sidebar',
@@ -12,16 +13,19 @@ export class SidebarComponent implements OnInit, AfterViewInit {
 
   constructor(
     public loginServiceService: LoginServiceService,
-    public router: Router
+    public router: Router,
+    public dataServices:DataserviceService
   ) {}
-  ngOnInit() {}
+  ngOnInit() {
+    this.dataServices.getDataFromFirebase();
+  }
   ngAfterViewInit(): void {
 
   }
   public OnLogout(): void {
     this.loginServiceService.logout();
   }
-  public onChangeMenu(menu): void {
+  public onChangeMenu(menu:string): void {
     this.selectedMenu = menu;
   }
 }
