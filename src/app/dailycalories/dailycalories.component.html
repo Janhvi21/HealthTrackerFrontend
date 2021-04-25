@@ -3,7 +3,7 @@
         <div class="" id="content" style="height: 100%">
             <div class="container-fluid">
                 <div class="d-sm-flex justify-content-between align-items-center mb-4">
-                    <h3 class="title py-2">Add Calorie Intake</h3>
+                    <h3 class="title py-2"> Add Your Calorie Consumptions:</h3>
                 </div>
 
                 <div class="row" *ngIf="showform">
@@ -80,11 +80,7 @@
         </div>
         <div
           class="row"
-          *ngIf="
-            !showform &&
-            calorieValues &&
-            calorieValues.length > 0
-          "
+          *ngIf="!showform && calorieValues && calorieValues.length > 0"
         >
           <div class="col-md-12">
             <div class="card shadow mb-4 m-2">
@@ -100,17 +96,20 @@
                       </tr>
                     </thead>
                     <tbody>
-                      <tr
-                        *ngFor="
-                          let row of this.calorieValues;
-                          let i = index
-                        "
-                      >
+                      <tr *ngFor="let row of this.calorieValues; let i = index">
                         <td>{{ row.Date }}</td>
                         <td>{{ row.Category }}</td>
                         <td>{{ row.Details }}</td>
                         <td>{{ row.Calorie }}</td>
-
+                        <td>
+                          <a
+                            class="add"
+                            title="Delete"
+                            data-toggle="tooltip"
+                            (click)="OnDelete(row.idate, row.index)"
+                            ><i class="fa fa-trash"></i
+                          ></a>
+                        </td>
                       </tr>
                     </tbody>
                   </table>
@@ -121,10 +120,7 @@
         </div>
         <div
           class="alert alert-info"
-          *ngIf="
-            !calorieValues ||
-            (calorieValues && calorieValues.length == 0)
-          "
+          *ngIf="!calorieValues || (calorieValues && calorieValues.length == 0)"
         >
           <strong>Add Meal for Today</strong>
         </div>

@@ -4,147 +4,224 @@ import {
   AfterViewInit,
   AfterViewChecked,
 } from '@angular/core';
-import * as CanvasJS from '../assets/canvasjs.min';
 import { DataserviceService } from '../dataservice.service';
-
+import * as CanvasJS from '../assets/canvasjs.min';
+import { DatePipe } from '@angular/common';
 @Component({
   selector: 'app-bmi-chart',
   templateUrl: './bmi-chart.component.html',
   styleUrls: ['./bmi-chart.component.scss'],
 })
 export class BmiChartComponent implements OnInit, AfterViewInit {
-  revenueColumnChart;
-  chart;
-  chartnew;
-  constructor(public dataService: DataserviceService) {}
+  todaysCalorie: {};
+  calorieIntakePerDay;
+  comparisonChart;
+  productsRevenuePieChart;
+  points = [];
+  breakfastPoints = [];
+  lunchPoints = [];
+  snacksPoints = [];
+  dinnerPoints = [];
+  constructor(
+    public dataService: DataserviceService,
+    public datepipe: DatePipe
+  ) {}
   title = 'canvasjs-angular';
   ngOnInit(): void {
-    var totalRevenue = 15341110;
-    let dataPoints = [
-      { x: new Date('2018-03-01'), y: 85.3 },
-      { x: new Date('2018-03-02'), y: 83.97 },
-      { x: new Date('2018-03-05'), y: 83.49 },
-      { x: new Date('2018-03-06'), y: 84.16 },
-      { x: new Date('2018-03-07'), y: 84.86 },
-      { x: new Date('2018-03-08'), y: 84.97 },
-      { x: new Date('2018-03-09'), y: 85.13 },
-      { x: new Date('2018-03-12'), y: 85.71 },
-      { x: new Date('2018-03-13'), y: 84.63 },
-      { x: new Date('2018-03-14'), y: 84.17 },
-      { x: new Date('2018-03-15'), y: 85.12 },
-      { x: new Date('2018-03-16'), y: 85.86 },
-      { x: new Date('2018-03-19'), y: 85.17 },
-      { x: new Date('2018-03-20'), y: 85.99 },
-      { x: new Date('2018-03-21'), y: 86.1 },
-      { x: new Date('2018-03-22'), y: 85.33 },
-      { x: new Date('2018-03-23'), y: 84.18 },
-      { x: new Date('2018-03-26'), y: 85.21 },
-      { x: new Date('2018-03-27'), y: 85.81 },
-      { x: new Date('2018-03-28'), y: 85.56 },
-      { x: new Date('2018-03-29'), y: 88.15 },
-    ];
+    this.calorieIntakePerDay = null;
+    this.comparisonChart = null;
+    this.productsRevenuePieChart = null;
+    var date = new Date();
+    let latest_date = this.datepipe.transform(date, 'yyyyMMdd');
+    this.todaysCalorie = this.dataService.userCalorieConsumption
+      ? this.dataService.userCalorieConsumption[latest_date]
+      : null;
+
+    for (var d in this.dataService.userCalorieConsumption) {
+      let temp = { y: 0, label: '' };
+      var str = new Date(
+        d.substring(4, 6) +
+          '/' +
+          d.substring(6, d.length) +
+          '/' +
+          d.substring(0, 4)
+      );
+      temp.label = this.datepipe.transform(str, 'MMM dd yyyy');
+      temp.y = this.dataService.userCalorieConsumption[d]['TotalCaloriePerDay'];
+      this.points.push(temp);
+      let temp1 = { y: 0, label: '' };
+      temp1.label = this.datepipe.transform(str, 'MMM dd yyyy');
+      temp1.y = this.dataService.userCalorieConsumption[d]['Breakfast']
+        ? this.dataService.userCalorieConsumption[d]['Breakfast']
+        : 0;
+      this.breakfastPoints.push(temp1);
+      let temp2 = { y: 0, label: '' };
+      temp2.label = this.datepipe.transform(str, 'MMM dd yyyy');
+      temp2.y = this.dataService.userCalorieConsumption[d]['Snacks']
+        ? this.dataService.userCalorieConsumption[d]['Snacks']
+        : 0;
+      this.snacksPoints.push(temp2);
+      let temp3 = { y: 0, label: '' };
+      temp3.label = this.datepipe.transform(str, 'MMM dd yyyy');
+      temp3.y = this.dataService.userCalorieConsumption[d]['Dinner']
+        ? this.dataService.userCalorieConsumption[d]['Dinner']
+        : 0;
+      this.dinnerPoints.push(temp3);
+      let temp4 = { y: 0, label: '' };
+      temp4.label = this.datepipe.transform(str, 'MMM dd yyyy');
+      temp4.y = this.dataService.userCalorieConsumption[d]['Lunch']
+        ? this.dataService.userCalorieConsumption[d]['Lunch']
+        : 0;
+      this.lunchPoints.push(temp4);
+    }
+
     // CanvasJS column chart to show revenue from Jan 2015 - Dec 2015
-    this.revenueColumnChart = new CanvasJS.Chart('revenue-column-chart', {
-      animationEnabled: true,
-      backgroundColor: 'transparent',
-      theme: 'light2',
-      axisX: {
-        labelFontSize: 14,
-        valueFormatString: 'MMM YYYY',
-      },
-      axisY: {
-        labelFontSize: 14,
-        prefix: '$',
-      },
-      toolTip: {
-        borderThickness: 0,
-        cornerRadius: 0,
-      },
-      data: [
-        {
-          type: 'column',
-          yValueFormatString: '$###,###.##',
-          dataPoints: [
-            { x: new Date('1 Jan 2015'), y: 868800 },
-            { x: new Date('1 Feb 2015'), y: 1071550 },
-            { x: new Date('1 Mar 2015'), y: 1286200 },
-            { x: new Date('1 Apr 2015'), y: 1106900 },
-            { x: new Date('1 May 2015'), y: 1033800 },
-            { x: new Date('1 Jun 2015'), y: 1017160 },
-            { x: new Date('1 Jul 2015'), y: 1458000 },
-            { x: new Date('1 Aug 2015'), y: 1165850 },
-            { x: new Date('1 Sep 2015'), y: 1594150 },
-            { x: new Date('1 Oct 2015'), y: 1501700 },
-            { x: new Date('1 Nov 2015'), y: 1588400 },
-            { x: new Date('1 Dec 2015'), y: 1648600 },
-          ],
-        },
-      ],
-    });
-
-
-    this.chart = new CanvasJS.Chart('chartContainernew', {
-      animationEnabled: true,
-      theme: 'light2',
-      title: {
-        text: 'Stock Price of BMW - March 2018',
-      },
-      axisX: {
-        valueFormatString: 'DD MMM',
-        crosshair: {
-          enabled: true,
-          snapToDataPoint: true,
-        },
-      },
-      axisY: {
-        title: 'Closing Price (in EUR)',
-        includeZero: false,
-        valueFormatString: '€##0.00',
-        crosshair: {
-          enabled: true,
-          snapToDataPoint: true,
-          labelFormatter: function (e) {
-            return '€' + CanvasJS.formatNumber(e.value, '##0.00');
-          },
-        },
-      },
-      data: [
-        {
-          type: 'area',
-          xValueFormatString: 'DD MMM',
-          yValueFormatString: '€##0.00',
-          dataPoints: dataPoints,
-        },
-      ],
-    });
-    this.chartnew = new CanvasJS.Chart('chartContainer', {
-      animationEnabled: true,
-      theme: 'light2',
-      title: {
-        text: 'BMI',
-      },
-      axisX: {
-        crosshair: {
-          enabled: true,
-          snapToDataPoint: true,
-        },
-      },
-      axisY: {
-        crosshair: {
-          enabled: true,
-          snapToDataPoint: true,
-        },
-      },
-      data: [
-        {
-          dataPoints: dataPoints,
-        },
-      ],
-    });
   }
   ngAfterViewInit(): void {
-    this.revenueColumnChart.render();
-    this.chart.render();
-    this.chartnew.render();
+    if (this.todaysCalorie) {
+      this.productsRevenuePieChart = new CanvasJS.Chart('meal-pie-chart', {
+        animationEnabled: true,
+        exportEnabled: true,
+        theme: 'light2',
+        legend: {
+          fontSize: 14,
+        },
+        toolTip: {
+          borderThickness: 0,
+          content:
+            "<span style='\"'color: {color};'\"'>{name}</span>: {y} Calories",
+          cornerRadius: 0,
+        },
+        data: [
+          {
+            indexLabelFontColor: '#676464',
+            indexLabelFontSize: 14,
+            legendMarkerType: 'square',
+            legendText: '{indexLabel}',
+            showInLegend: true,
+            startAngle: 90,
+            type: 'pie',
+            dataPoints: [
+              {
+                y: this.todaysCalorie['Breakfast']
+                  ? this.todaysCalorie['Breakfast']
+                  : 0,
+                name: 'Breakfast',
+                indexLabel: 'Breakfast - ' + this.todaysCalorie['Breakfast'],
+                legendText: 'Breakfast',
+                exploded: true,
+              },
+              {
+                y: this.todaysCalorie['Lunch']
+                  ? this.todaysCalorie['Lunch']
+                  : 0,
+                name: 'Lunch',
+                indexLabel: 'Lunch - ' + this.todaysCalorie['Lunch'],
+                legendText: 'Lunch',
+              },
+              {
+                y: this.todaysCalorie['Snacks']
+                  ? this.todaysCalorie['Snacks']
+                  : 0,
+                name: 'Snacks',
+                indexLabel: 'Snacks - ' + this.todaysCalorie['Snacks'],
+                legendText: 'Snacks',
+                color: '#8064a1',
+              },
+              {
+                y: this.todaysCalorie['Dinner']
+                  ? this.todaysCalorie['Dinner']
+                  : 0,
+                name: 'Dinner',
+                indexLabel: 'Dinner - ' + this.todaysCalorie['Dinner'],
+                legendText: 'Dinner',
+              },
+            ],
+          },
+        ],
+      });
+      this.productsRevenuePieChart.render();
+    }
+    if (this.dataService.userCalorieConsumption) {
+      this.calorieIntakePerDay = new CanvasJS.Chart('calorie-intake-per-day', {
+        animationEnabled: true,
+        exportEnabled: true,
+        title: {
+          text: '',
+        },
+        toolTip: {
+          borderThickness: 0,
+          content: 'Total Calories {y}',
+          cornerRadius: 0,
+        },
+        data: [
+          {
+            type: 'column',
+            dataPoints: this.points,
+          },
+        ],
+      });
+      this.calorieIntakePerDay.render();
+      this.comparisonChart = new CanvasJS.Chart('comparison-chart', {
+        animationEnabled: true,
+        exportEnabled: true,
+        title: {
+          text: '',
+        },
+        axisY: {
+          title: 'Calorie Consumptions',
+          titleFontColor: '#4F81BC',
+          lineColor: '#4F81BC',
+          labelFontColor: '#4F81BC',
+          tickColor: '#4F81BC',
+        },
+        toolTip: {
+          shared: true,
+        },
+        legend: {
+          cursor: 'pointer',
+          itemclick: this.toggleDataSeries,
+        },
+        data: [
+          {
+            type: 'column',
+            name: 'Breakfast Calorie Intake',
+            legendText: 'Breakfast',
+            showInLegend: true,
+            dataPoints: this.breakfastPoints,
+          },
+          {
+            type: 'column',
+            name: 'Lunch Calorie Intake',
+            legendText: 'Lunch',
+            showInLegend: true,
+            dataPoints: this.lunchPoints,
+          },
+          {
+            type: 'column',
+            name: 'Snacks Calorie Intake',
+            legendText: 'Snacks',
+            showInLegend: true,
+            dataPoints: this.snacksPoints,
+          },
+          {
+            type: 'column',
+            name: 'Dinner Calorie Intake',
+            legendText: 'Dinner',
+            showInLegend: true,
+            dataPoints: this.dinnerPoints,
+          },
+        ],
+      });
+      this.comparisonChart.render();
+    }
+  }
+  toggleDataSeries(e) {
+    if (typeof e.dataSeries.visible === 'undefined' || e.dataSeries.visible) {
+      e.dataSeries.visible = false;
+    } else {
+      e.dataSeries.visible = true;
+    }
+    this.comparisonChart.render();
   }
 }

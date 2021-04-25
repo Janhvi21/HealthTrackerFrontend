@@ -1,31 +1,32 @@
 .card {
-  background: rgba(255, 255, 255, 0.7);
-  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.18);
+    background: rgba(255, 255, 255, 0.7);
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.18);
 }
 
 .card-header {
-  background-color: rgba(255, 255, 255, 0) !important;
-  border-bottom: 2px solid white !important;
+    background-color: rgba(255, 255, 255, 0) !important;
+    border-bottom: 2px solid white !important;
 }
 
 .content {
-  min-height: calc(100vh - 0px);
+    min-height: calc(100vh - 0px);
 }
 
 .title {
-  font-size: 200%;
-  color: white;
-  font-weight: 200;
-  font-family: cursive;
+    font-size: 200%;
+    color: black;
+    font-weight: 200;
+    font-family: cursive;
 }
+
 .box {
-  background: rgba(255, 255, 255, 0.2);
-  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.18);
-  height: 100%
+    background: rgba(255, 255, 255, 0.2);
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    height: 100%
 }

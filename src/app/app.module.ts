@@ -23,8 +23,7 @@ import { BmiChartComponent } from './bmi-chart/bmi-chart.component';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import { ProfileviewComponent } from './profileview/profileview.component';
 import { DailycaloriesComponent } from './dailycalories/dailycalories.component';
-
-
+import { DatePipe } from '@angular/common';
 @NgModule({
   declarations: [
     AppComponent,
@@ -55,7 +54,7 @@ import { DailycaloriesComponent } from './dailycalories/dailycalories.component'
     ReactiveFormsModule,
     FormsModule
   ],
-  providers: [LoginServiceService],
+  providers: [LoginServiceService,DatePipe],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

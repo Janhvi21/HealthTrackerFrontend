@@ -18,7 +18,7 @@ export class DailycaloriesComponent implements OnInit, AfterViewChecked {
   Category = 'Select';
   showform: boolean = false;
   calorieValues = [];
-  headers = ['Date', 'Category', 'Details', 'Calorie Consumed'];
+  headers = ['Date', 'Category', 'Details', 'Calorie Consumed', ''];
   ngOnInit(): void {
     /*for (let cat in this.dataServices.UserData) {
       this.categories.push(cat);
@@ -31,13 +31,16 @@ export class DailycaloriesComponent implements OnInit, AfterViewChecked {
           if (
             typeof this.dataServices.userCalorieConsumption[data][d] ===
             'object'
-          )
-            this.calorieValues.push(
-              this.dataServices.userCalorieConsumption[data][d]
-            );
+          ) {
+            var temp = {
+              ...this.dataServices.userCalorieConsumption[data][d],
+              idate: data,
+              index: d,
+            };
+            this.calorieValues.push(temp);
+          }
         }
       }
-      console.log(this.calorieValues);
     }, 500);
   }
   ngAfterViewChecked(): void {}
@@ -45,10 +48,14 @@ export class DailycaloriesComponent implements OnInit, AfterViewChecked {
     this.showform = !this.showform;
   }
   onAddMeal(Category: string, Date: Date, Detail: string, Calorie: number) {
-    console.log(Category, Date, Detail, Calorie);
     this.showform = false;
     this.dataServices.addCalorieConsumption(Category, Date, Detail, Calorie);
     this.ngOnInit();
   }
-  OnDelete(id: string, category: string, spent: string) {}
+  OnDelete(idate, index) {
+    this.dataServices.deleteMeal(idate, index);
+    setTimeout(() => {
+      this.ngOnInit();
+    }, 1000);
+  }
 }

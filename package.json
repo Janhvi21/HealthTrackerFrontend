@@ -26,6 +26,7 @@
     "@material/fab": "^8.0.0",
     "@ng-bootstrap/ng-bootstrap": "^9.1.0",
     "bootstrap": "^4.5.2",
+    "canvasjs": "^1.8.3",
     "chart.js": "^2.9.4",
     "d3": "^5.9.1",
     "express-jwt": "^6.0.0",

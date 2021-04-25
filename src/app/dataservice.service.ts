@@ -114,7 +114,6 @@ export class DataserviceService {
         })
         .toPromise()
         .then((res: any) => {
-          console.log(res);
           this.userData = res;
           resolve();
         })
@@ -155,7 +154,6 @@ export class DataserviceService {
     return promise;
   }
   updateUser() {
-    console.log(this.userData);
     let token = localStorage.getItem('TOKEN');
     let uid = localStorage.getItem('uid');
     const params = {
@@ -175,7 +173,6 @@ export class DataserviceService {
         )
         .toPromise()
         .then((res: any) => {
-          console.log(res);
           if (res.firstName === this.userData['firstName']) {
             this.userData = res;
           }
@@ -192,7 +189,6 @@ export class DataserviceService {
     return promise;
   }
   updateUserHealthInfo() {
-    console.log(this.userData);
     let token = localStorage.getItem('TOKEN');
     let uid = localStorage.getItem('uid');
     const params = {
@@ -241,7 +237,6 @@ export class DataserviceService {
         )
         .toPromise()
         .then((res: any) => {
-          console.log(res);
           this.userCalorieConsumption=res;
           resolve();
         })
@@ -285,6 +280,39 @@ export class DataserviceService {
           resolve();
           if (error.status == 401 || error.statusText == 'Unauthorized') {
             //this.router.navigate(['/profileview']);
+            this.removeBackdrop();
+          }
+        });
+    });
+    return promise;
+  }
+  deleteMeal(date,index) {
+    let token = localStorage.getItem('TOKEN');
+    let uid = localStorage.getItem('uid');
+    const params = {
+     date:date,
+     index:index
+    };
+    const promise = new Promise<void>((resolve, reject) => {
+      this.http
+        .post(
+          environment.URL + ':3000/deleteMeal',
+          { params },
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+              uid: uid,
+            },
+          }
+        )
+        .toPromise()
+        .then((res: any) => {
+          resolve();
+        })
+        .catch((error: any) => {
+          resolve();
+          if (error.status == 401 || error.statusText == 'Unauthorized') {
+            //this.router.navigate(['/login']);
             this.removeBackdrop();
           }
         });

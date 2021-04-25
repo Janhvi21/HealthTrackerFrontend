@@ -10,23 +10,26 @@ import { DataserviceService } from '../dataservice.service';
 })
 export class SidebarComponent implements OnInit, AfterViewInit {
   selectedMenu: string = 'Dashboard';
-
+  showDashBoard: boolean = false;
   constructor(
     public loginServiceService: LoginServiceService,
     public router: Router,
-    public dataService:DataserviceService
+    public dataService: DataserviceService
   ) {}
   ngOnInit() {
     this.dataService.getDataFromFirebase();
     this.dataService.getHealthDataFromFirebase();
+    this.dataService.getCalorieConsumption();
+    setTimeout(() => {
+      this.showDashBoard = true;
+    }, 500);
   }
-  ngAfterViewInit(): void {
-
-  }
+  ngAfterViewInit(): void {}
   public OnLogout(): void {
     this.loginServiceService.logout();
   }
-  public onChangeMenu(menu:string): void {
+  public onChangeMenu(menu: string): void {
     this.selectedMenu = menu;
+
   }
 }
